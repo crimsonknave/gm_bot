@@ -10,6 +10,18 @@
 #   roll XdY - roll X Y-sided dice
 #   roll XdY - roll X Y-sided dice
 
+_ = require 'underscore'
+
+roll = (sides) ->
+  Math.floor(Math.random() * sides) + 1
+
 module.exports = (robot) ->
-  robot.respond /(\d+)d(\d+)/i, (msg) ->
-    msg.send "Rolling #{msg[1]} #{msg[2]}-sided dice"
+  robot.respond /roll (\d+)d(\d+)/i, (msg) ->
+    x = msg.match[1]
+    y = msg.match[2]
+    msg.send "Rolling #{x} #{y}-sided dice"
+    results = []
+    _(x).times ->
+      results.push roll(y)
+
+    msg.send results.join ', '
