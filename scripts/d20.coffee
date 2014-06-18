@@ -24,4 +24,4 @@ module.exports = (robot) ->
     _(x).times ->
       results.push roll(y)
 
-    msg.send results.join ', '
+    msg.send "#{_.sum(results)} (#{results.join ', '})"
